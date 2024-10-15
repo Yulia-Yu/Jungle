@@ -3,16 +3,6 @@ package ru.yuliayu.jungle.until;
 import ru.yuliayu.jungle.entity.Jaguar;
 
 public class EventProducer {
-    //30// пробежка -10 энергии
-    //10// спать +20 е //40 + 30
-    // охотник - 15 ж
-    //капкан - 10 ж
-    //болезнь -5 ж
-    //скушал грызун
-    //скушал змея
-    //скушал обезьяна
-    //скушал тигр
-    //скушал крокодил
     //добавить метод медоды сравнения
     //private boolean
     private int maxEnergy = 100;
@@ -42,6 +32,11 @@ public class EventProducer {
             } else if (eventNum >= 94 && eventNum <= 100) {
                 eatCrocodileEvent(jaguar);
             }
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("К сожелению ягуар умер, но он прожил прекрасную жизнь.");
     }
@@ -53,17 +48,17 @@ public class EventProducer {
         }
         jaguar.setEnergy(energy);
         energyCheck(jaguar);
-        System.out.println("Ягуар совершил пробежку -10 энергии. Текущая энергия: " + jaguar.getEnergy());
+        System.out.println("Ягуар совершил пробежку -10 энергии.");
     }
 
     private void sleepEvent(Jaguar jaguar) {
-        int energy = jaguar.getEnergy() + 20;
+        int energy = jaguar.getEnergy() + 10;
         if (energy > maxEnergy) {
             energy = maxEnergy;
         }
         jaguar.setEnergy(energy);
         energyCheck(jaguar);
-        System.out.println("Ягуар сладко поспал +20 энергии. Текущая энергия: " + jaguar.getEnergy());
+        System.out.println("Ягуар сладко поспал +10 энергии.");
     }
 
     private void hanterEvent(Jaguar jaguar) {
@@ -73,7 +68,7 @@ public class EventProducer {
         }
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("Ягуар попался охотнику - 15 жизней. Текщие жизни: " + jaguar.getHealth());
+        System.out.println("Ягуар попался охотнику - 15 жизней.");
     }
 
     private void trapEvent(Jaguar jaguar) {
@@ -83,7 +78,7 @@ public class EventProducer {
         }
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("О нет!!! На пути ягуар попаля в капкан - 10 жизней. Текщие жизни: " + jaguar.getHealth());
+        System.out.println("О нет!!! На пути ягуар попаля в капкан - 10 жизней.");
     }
 
     private void diseaseEvent(Jaguar jaguar) {
@@ -93,8 +88,7 @@ public class EventProducer {
         }
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("Даже самые сильные не могут устоять против простуды. Ягуар заболел - 5 жизней. Текщие жизни: "
-                + jaguar.getHealth());
+        System.out.println("Даже самые сильные не могут устоять против простуды. Ягуар заболел - 5 жизней.");
     }
 
     private void eatRodentEvent(Jaguar jaguar) {
@@ -110,8 +104,7 @@ public class EventProducer {
         jaguar.setEnergy(energy);
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("Ягуар полакомился мышонком, не сильно сытный обед - 5 энергии.Текущая энергия: "
-                + jaguar.getEnergy() + ". Текщие жизни: " + jaguar.getHealth());
+        System.out.println("Ягуар полакомился мышонком, не сильно сытный обед - 5 энергии.");
 
     }
 
@@ -128,8 +121,7 @@ public class EventProducer {
         jaguar.setEnergy(energy);
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("Ягуар полакомился змеей, не сильно сытный обед - 7 энергии.Текущая энергия: "
-                + jaguar.getEnergy() + ". Текщие жизни: " + jaguar.getHealth());
+        System.out.println("Ягуар полакомился змеей, не сильно сытный обед - 7 энергии.");
 
     }
 
@@ -146,8 +138,7 @@ public class EventProducer {
         jaguar.setEnergy(energy);
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("Ягуар съел обезьяну - 10 энергии.Текущая энергия: "
-                + jaguar.getEnergy() + ". Текщие жизни: " + jaguar.getHealth());
+        System.out.println("Ягуар съел обезьяну - 10 энергии.");
 
     }
 
@@ -164,8 +155,7 @@ public class EventProducer {
         jaguar.setEnergy(energy);
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("На пути ягуару встретился тигр. Это была тяжелая битва, но сытный ужин - 15 энергии.Текущая энергия: "
-                + jaguar.getEnergy() + ". Текщие жизни: " + jaguar.getHealth());
+        System.out.println("На пути ягуару встретился тигр. Это была тяжелая битва, но сытный ужин - 15 энергии.");
 
     }
 
@@ -182,12 +172,12 @@ public class EventProducer {
         jaguar.setEnergy(energy);
         jaguar.setHealth(health);
         energyCheck(jaguar);
-        System.out.println("На водопое ягуар наткнулся на крокодила.После этой битвы ягуар был еще долго сыт - 20 энергии. Текущая энергия: "
-                + jaguar.getEnergy() + ". Текщие жизни: " + jaguar.getHealth());
+        System.out.println("На водопое ягуар наткнулся на крокодила.После этой битвы ягуар был еще долго сыт - 20 энергии.");
 
     }
 
     private boolean statusCheck(Jaguar jaguar) {
+        System.out.println("hp: " + jaguar.getHealth() + " en: " + jaguar.getEnergy());
         if (jaguar.getHealth() <= 0) {
             return false;
         } else {

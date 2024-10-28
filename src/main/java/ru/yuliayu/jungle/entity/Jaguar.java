@@ -3,10 +3,10 @@ package ru.yuliayu.jungle.entity;
 public class Jaguar {
     private int energy = 100;
     private int health = 50;
-    private double coef_food_en = 1.5;
+    private final double coef_food_en = 1.5;
 
     public int getEnergy() {
-        return this.energy;
+        return energy;
     }
 
     public void setEnergy(int energy) {
@@ -14,7 +14,7 @@ public class Jaguar {
     }
 
     public int getHealth() {
-        return this.health;
+        return health;
     }
 
     public void setHealth(int health) {
@@ -22,6 +22,6 @@ public class Jaguar {
     }
 
     public double getCoef_food_en() {
-        return this.coef_food_en;
+        return coef_food_en;
     }
 }

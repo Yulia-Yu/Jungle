@@ -1,12 +1,14 @@
-package ru.yuliayu.jungle.until;
+package ru.yuliayu.jungle.util;
 
 import ru.yuliayu.jungle.entity.Jaguar;
 
 public class EventProducer {
     //добавить метод медоды сравнения
     //private boolean
-    private int maxEnergy = 100;
-    private int maxHealth = 50;
+    private final int maxEnergy = 100;
+    private final int maxHealth = 50;
+    private final int minEnergy = 0;
+    private final int minHealth = 0;
 
     public void activeEvent(Jaguar jaguar) {
         while (statusCheck(jaguar)) {
@@ -29,7 +31,7 @@ public class EventProducer {
                 eatMonkeyEvent(jaguar);
             } else if (eventNum >= 88 && eventNum < 94) {
                 eatTigerEvent(jaguar);
-            } else if (eventNum >= 94 && eventNum <= 100) {
+            } else if (eventNum >= 94 && eventNum < 100) {
                 eatCrocodileEvent(jaguar);
             }
             try {
@@ -41,10 +43,26 @@ public class EventProducer {
         System.out.println("К сожелению ягуар умер, но он прожил прекрасную жизнь.");
     }
 
+    private boolean checkMinEnergy (int energy){
+        return energy < minEnergy;
+    }
+
+    private boolean checkMaxEnergy (int energy){
+        return energy > maxEnergy;
+    }
+
+    private boolean checkMinHealth (int health){
+        return health < minHealth;
+    }
+
+    private boolean checkMaxHealth (int health){
+        return health > maxHealth;
+    }
+
     private void walkEvent(Jaguar jaguar) {
         int energy = jaguar.getEnergy() - 10;
-        if (energy < 0) {
-            energy = 0;
+        if (checkMinEnergy(energy)) {
+            energy = minEnergy;
         }
         jaguar.setEnergy(energy);
         energyCheck(jaguar);
@@ -53,7 +71,7 @@ public class EventProducer {
 
     private void sleepEvent(Jaguar jaguar) {
         int energy = jaguar.getEnergy() + 10;
-        if (energy > maxEnergy) {
+        if (checkMaxEnergy(energy)) {
             energy = maxEnergy;
         }
         jaguar.setEnergy(energy);
@@ -63,8 +81,8 @@ public class EventProducer {
 
     private void hanterEvent(Jaguar jaguar) {
         int health = jaguar.getHealth() - 15;
-        if (health < 0) {
-            health = 0;
+        if (checkMinHealth(health)) {
+            health = minHealth;
         }
         jaguar.setHealth(health);
         energyCheck(jaguar);
@@ -73,8 +91,8 @@ public class EventProducer {
 
     private void trapEvent(Jaguar jaguar) {
         int health = jaguar.getHealth() - 10;
-        if (health < 0) {
-            health = 0;
+        if (checkMinHealth(health)) {
+            health = minHealth;
         }
         jaguar.setHealth(health);
         energyCheck(jaguar);
@@ -83,8 +101,8 @@ public class EventProducer {
 
     private void diseaseEvent(Jaguar jaguar) {
         int health = jaguar.getHealth() - 5;
-        if (health < 0) {
-            health = 0;
+        if (checkMinHealth(health)) {
+            health = minHealth;
         }
         jaguar.setHealth(health);
         energyCheck(jaguar);
@@ -95,10 +113,10 @@ public class EventProducer {
         int energy = jaguar.getEnergy() - 5;
         int health = jaguar.getHealth() + (int) (jaguar.getCoef_food_en() * 2);
 
-        if (energy < 0) {
-            energy = 0;
+        if (checkMinEnergy(energy)) {
+            energy = minEnergy;
         }
-        if (health > maxHealth) {
+        if (checkMaxHealth(health)) {
             health = maxHealth;
         }
         jaguar.setEnergy(energy);
@@ -112,10 +130,10 @@ public class EventProducer {
         int energy = jaguar.getEnergy() - 7;
         int health = jaguar.getHealth() + (int) (jaguar.getCoef_food_en() * 4);
 
-        if (energy < 0) {
-            energy = 0;
+        if (checkMinEnergy(energy)) {
+            energy = minEnergy;
         }
-        if (health > maxHealth) {
+        if (checkMaxHealth(health)) {
             health = maxHealth;
         }
         jaguar.setEnergy(energy);
@@ -129,10 +147,10 @@ public class EventProducer {
         int energy = jaguar.getEnergy() - 10;
         int health = jaguar.getHealth() + (int) (jaguar.getCoef_food_en() * 6);
 
-        if (energy < 0) {
-            energy = 0;
+        if (checkMinEnergy(energy)) {
+            energy = minEnergy;
         }
-        if (health > maxHealth) {
+        if (checkMaxHealth(health)) {
             health = maxHealth;
         }
         jaguar.setEnergy(energy);
@@ -146,10 +164,10 @@ public class EventProducer {
         int energy = jaguar.getEnergy() - 15;
         int health = jaguar.getHealth() + (int) (jaguar.getCoef_food_en() * 8);
 
-        if (energy < 0) {
-            energy = 0;
+        if (checkMinEnergy(energy)) {
+            energy = minEnergy;
         }
-        if (health > maxHealth) {
+        if (checkMaxHealth(health)) {
             health = maxHealth;
         }
         jaguar.setEnergy(energy);
@@ -163,10 +181,10 @@ public class EventProducer {
         int energy = jaguar.getEnergy() - 20;
         int health = jaguar.getHealth() + (int) (jaguar.getCoef_food_en() * 10);
 
-        if (energy < 0) {
-            energy = 0;
+        if (checkMinEnergy(energy)) {
+            energy = minEnergy;
         }
-        if (health > maxHealth) {
+        if (checkMaxHealth(health)) {
             health = maxHealth;
         }
         jaguar.setEnergy(energy);
@@ -178,20 +196,16 @@ public class EventProducer {
 
     private boolean statusCheck(Jaguar jaguar) {
         System.out.println("hp: " + jaguar.getHealth() + " en: " + jaguar.getEnergy());
-        if (jaguar.getHealth() <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        if (jaguar.getHealth() <= 0) return false; else return true;
     }
 
     private void energyCheck(Jaguar jaguar) {
         int health = jaguar.getHealth();
-        if (jaguar.getEnergy() <= 0) {
+        if (jaguar.getEnergy() <= minEnergy) {
             health -= 5;
         }
-        if (health < 0) {
-            health = 0;
+        if (checkMinHealth(health)) {
+            health = minHealth;
         }
         jaguar.setHealth(health);
     }

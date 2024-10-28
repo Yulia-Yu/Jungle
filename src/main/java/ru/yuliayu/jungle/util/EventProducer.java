@@ -196,7 +196,7 @@ public class EventProducer {
 
     private boolean statusCheck(Jaguar jaguar) {
         System.out.println("hp: " + jaguar.getHealth() + " en: " + jaguar.getEnergy());
-        if (jaguar.getHealth() <= 0) return false; else return true;
+        return jaguar.getHealth() > 0;
     }
 
     private void energyCheck(Jaguar jaguar) {
